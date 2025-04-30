@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #DEDCDE, #DEDCDE);
+    }
+    .container {
+      padding: 20px;
+    }
+    .hero-image {
+      max-width: 100%;
+      height: auto;
+    }
+    h1 {
+      font-size: 2em;
+      margin: 20px 0 10px;
+      color: #0d47a1;
+    }
+    p {
+      font-size: 1.1em;
+      max-width: 600px;
+      margin: 10px auto 30px;
+      color: #333;
+    }
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .btn {
+      padding: 15px 25px;
+      border: none;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+      width: 80%;
+      max-width: 300px;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+    }
+    .red-btn {
+      background-color: #d32f2f;
+    }
+    .blue-btn {
+      background-color: #1976d2;
+    }
+    .warning {
+      color: red;
+      font-size: 0.95em;
+    }
+    .footer-img {
+      width: 100px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="capture">
+    <img src="pic.jpg" alt="Hero" class="hero-image">
+    <h1>Thank you</h1>
+    <p>
+      Du hast den IDM-Service gerettet – täglich, heldenhaft!!<br>
+      Viel Spaß und Erfolg bei allem, was jetzt kommt – Möge dir dort kein einziger Codebeamer-Bug über den Weg laufen!
+    </p>
+    <div class="buttons">
+      <button class="btn red-btn" onclick="showPopup()">Nächstes Ziel</button>
+      <button class="btn blue-btn" onclick="downloadScreenshot()">Download as (pdf)</button>
+    </div>
+    <img src="icegif-4381.gif" alt="Footer Comic" class="footer-img">
+    <p class="warning">⚠️ Diese Webseite wurde nicht mit der „Connectivity Suite“ erstellt.</p>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    function showPopup() {
+      alert("Mach dich bereit für dein nächstes Abenteuer!");
+    }
+
+    async function downloadScreenshot() {
+  const { jsPDF } = window.jspdf;
+
+  const element = document.getElementById("capture");
+
+  // Screenshot mit html2canvas
+  const canvas = await html2canvas(element, {
+    scale: 2, // bessere Qualität
+    useCORS: true
+  });
+
+  const imgData = canvas.toDataURL("image/png");
+
+  const pdf = new jsPDF({
+    orientation: "portrait",
+    unit: "mm",
+    format: "a4"
+  });
+
+  const pdfWidth = pdf.internal.pageSize.getWidth();
+  const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+  pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+  pdf.save("thank_you.pdf");
+}
+
+  </script>
+</body>
+</html>
