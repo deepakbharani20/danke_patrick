@@ -16,11 +16,11 @@
       padding: 20px;
     }
     .hero-image {
-      max-width: 100%;
+      max-width: 75%;
       height: auto;
     }
     h1 {
-      font-size: 2em;
+      font-size: 1.5em;
       margin: 20px 0 10px;
       color: #0d47a1;
     }
@@ -64,7 +64,7 @@
     }
     .footer-img {
       width: 100px;
-      margin: 20px auto;
+      
     }
   </style>
 </head>
@@ -78,7 +78,6 @@
     </p>
     <div class="buttons">
       <button class="btn blue-btn" onclick="showPopup()">Nächstes Ziel</button>
-    
     </div>
     <img src="icegif-4381.gif" alt="Footer Comic" class="footer-img">
     <p class="warning">⚠️ Diese Webseite wurde nicht mit der „Connectivity Suite“ erstellt.</p>
@@ -91,33 +90,6 @@
     function showPopup() {
       alert("Mach dich bereit für dein nächstes Abenteuer!");
     }
-
-    async function downloadScreenshot() {
-  const { jsPDF } = window.jspdf;
-
-  const element = document.getElementById("capture");
-
-  // Screenshot mit html2canvas
-  const canvas = await html2canvas(element, {
-    scale: 2, // bessere Qualität
-    useCORS: true
-  });
-
-  const imgData = canvas.toDataURL("image/png");
-
-  const pdf = new jsPDF({
-    orientation: "portrait",
-    unit: "mm",
-    format: "a4"
-  });
-
-  const pdfWidth = pdf.internal.pageSize.getWidth();
-  const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-  pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-  pdf.save("thank_you.pdf");
-}
-
   </script>
 </body>
 </html>
